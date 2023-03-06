@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 
-from methods import vote_untour
+from methods import vote_untour, vote_deuxtours
 
 
 def read_file(file_name):
     print("-------------- Fichier : ", file_name, " ----------------------")
+    global data
     data = pd.read_csv(file_name, encoding="ISO-8859-1", header=None)  # Extraction
     data.index += 1 # Pas de condidat zero
     columns = list(data.index)
@@ -13,7 +14,8 @@ def read_file(file_name):
 
     print("-------- Les différents classement disponible -----------")
     print(data_unique)
-    return  data_unique, columns
+
+    return data_unique, columns
 
 def get_occurence_classement(data_set, columns):
     nbr_occur_class = []  # Liste contenant le nombre d'occurence pour chaque classement
@@ -32,13 +34,12 @@ def get_occurence_classement(data_set, columns):
 
 
 
-
-
 if __name__ == "__main__" :
     data_files = ["data/profil1.csv", "data/profil2.csv", "data/profil3.csv", "data/exo_1.csv", "data/exo_2.csv", "data/exo_3.csv"]
     file_data = "data/profil1.csv"
-    data_set, columns = read_file(file_data)
-    result_1 = vote_untour.vote_un_tour(data_set, columns)
-    print(result_1)
+    data_unique, columns = read_file(file_data)
+    vote_untour.vote_un_tour(data_unique, columns)
+    vote_deuxtours.vote_deux_tours(data_unique, columns, data)
+
 
 

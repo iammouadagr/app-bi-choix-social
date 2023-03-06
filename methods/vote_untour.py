@@ -6,7 +6,6 @@ def vote_un_tour(data_set, columns):
     classement = pd.DataFrame(columns=["Condidat", "Nbr_Electeurs"])
     for col in columns:
         group = data_set.groupby([col])['number'].agg('sum')  # Calculer la sommes des electeurs pour chaque candidat
-        print(group)
         if 1 == group.index[0]:
             classement.loc[col, :] = [col, group.iloc[0]]
         else:
