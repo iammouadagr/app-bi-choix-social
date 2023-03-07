@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 
-from methods import vote_untour, vote_deuxtours
+from methods import vote_untour, vote_deuxtours, coombs
 
 
 def read_file(file_name):
@@ -38,8 +38,14 @@ if __name__ == "__main__" :
     data_files = ["data/profil1.csv", "data/profil2.csv", "data/profil3.csv", "data/exo_1.csv", "data/exo_2.csv", "data/exo_3.csv"]
     file_data = "data/profil1.csv"
     data_unique, columns = read_file(file_data)
+    print("------------------ Méthode Vote a un tours ------------------")
     vote_untour.vote_un_tour(data_unique, columns)
+    print("------------------ Méthode Vote a deux tours ------------------")
     vote_deuxtours.vote_deux_tours(data_unique, columns, data)
+    print("------------------ Coombs ------------------")
+    coombs.coombs(data_unique, columns)
+
+
 
 
 
