@@ -2,6 +2,9 @@
 import pandas as pd
 
 from methods import vote_untour, vote_deuxtours, coombs
+from methods.condorcet import condorcet
+from methods.vote_deuxtours import vote_deux_tours
+from methods.vote_untour import vote_un_tour
 
 
 def read_file(file_name):
@@ -39,11 +42,14 @@ if __name__ == "__main__" :
     file_data = "data/profil1.csv"
     data_unique, columns = read_file(file_data)
     print("------------------ Méthode Vote a un tours ------------------")
-    vote_untour.vote_un_tour(data_unique, columns)
+    vote_un_tour(data_unique, columns)
     print("------------------ Méthode Vote a deux tours ------------------")
-    vote_deuxtours.vote_deux_tours(data_unique, columns, data)
+    vote_deux_tours(data_unique, columns, data)
     print("------------------ Coombs ------------------")
     coombs.coombs(data_unique, columns)
+    print("------------------- condorcet ---------------------")
+    condorcet(data_unique, columns, data)
+
 
 
 
