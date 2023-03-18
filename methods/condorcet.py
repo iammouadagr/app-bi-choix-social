@@ -5,7 +5,6 @@ import pandas as pd
 from methods.copeland import copland
 from methods.min_max import min_max
 
-
 def condorcet(data_unique, columns, data):
     condorcet = pd.DataFrame(columns=columns)
     # Pour chaque couple calculer les duels
@@ -22,12 +21,15 @@ def condorcet(data_unique, columns, data):
 
     print("Le tableau de condorcet : ")
     print(condorcet, "\n")
+
     gagnant = False
+
 
     for i in range(1, len(columns) + 1):
         mask = condorcet[i] < condorcet.loc[i, :]
         if mask[mask == True].shape[0] == len(columns) - 1:
             print("Le gagnant est donc le condidat n°: ", i, "\n")
+
             gagnant = True
     if not gagnant:
         print("Aucun gagnant avec condorcet, donc voir avec la méthode min-max et copland\n")

@@ -16,9 +16,6 @@ def vote_un_tour(data_set, columns):
     print("#------------ Le classement avec la méthode à un tour  ----------------# ")
     print(classement, "\n")
 
-    print("Le gagnant est  le condidat n°: ", classement.iloc[0]["Condidat"], " avec : ",
-          classement.iloc[0]['Nbr_Electeurs'], " points\n")
 
-
-
+    print("Le gagnant est  le condidat n°: ", classement.iloc[0]["Condidat"], " avec : ", classement.iloc[0]['Nbr_Electeurs'], " points\n")
 
