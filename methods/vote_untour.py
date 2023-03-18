@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 
-
 def vote_un_tour(data_set, columns):
     print("---------------------- Méthode de classement avec Vote à Un tour ------------------------")
-    classement = pd.DataFrame(columns=["Candidat", "Nbr_Electeurs"])
+    classement = pd.DataFrame(columns=["Condidat", "Nbr_Electeurs"])
     for col in columns:
         group = data_set.groupby([col])['number'].agg('sum')  # Calculer la sommes des electeurs pour chaque candidat
         if 1 == group.index[0]:
@@ -17,8 +16,6 @@ def vote_un_tour(data_set, columns):
     print("#------------ Le classement avec la méthode à un tour  ----------------# ")
     print(classement, "\n")
 
-    print("Le gagnant est  le candidat n°: ", classement.iloc[0]["Candidat"], " avec : ",
-          classement.iloc[0]['Nbr_Electeurs'], " points\n")
 
-
+    print("Le gagnant est  le condidat n°: ", classement.iloc[0]["Condidat"], " avec : ", classement.iloc[0]['Nbr_Electeurs'], " points\n")
 

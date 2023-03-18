@@ -34,3 +34,4 @@ def coombs(data_unique, columns):
         print("Cas d'égalité, la méthode coombs ne propose pas de classement par rapport à ce cas")
     else:
         print("Le gagnant est donc le condidat n°: ", classement.iloc[-1]["condidat"], "\n")
+

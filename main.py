@@ -23,6 +23,7 @@ def read_file(file_name):
 
     return data_unique, columns,data
 
+
 def get_occurence_classement(data_set, columns):
     nbr_occur_class = []  # Liste contenant le nombre d'occurence pour chaque classement
     print("Nombre de classements distincts disponible : ", data_set.T.drop_duplicates().T.shape[1])
@@ -37,6 +38,7 @@ def get_occurence_classement(data_set, columns):
     data_unique = data_unique.sort_values(by=["number"], ascending=False)
 
     return data_unique
+
 
 def get_occurence_order_v2(data):
     standings = np.zeros((len(data.columns), len(data)))
@@ -58,10 +60,12 @@ def get_occurence_order_v2(data):
     standings = standings[~(standings[:, 1] == 0)]
     return standings, votes_by_rank
 
+
 if __name__ == "__main__" :
     data_files = ["profiles/profil1.csv", "profiles/profil2.csv", "profiles/profil3.csv"]
     file_data = data_files[0]
     data_unique, columns,data = read_file(file_data)
+
     print("------------------ Méthode Vote a un tours ------------------")
     vote_un_tour(data_unique, columns)
     print("------------------ Méthode Vote a deux tours ------------------")
@@ -76,6 +80,7 @@ if __name__ == "__main__" :
     print("------------------ Méthode Vote Borda ------------------")
     standings, nb_votes_par_ordre = get_occurence_order_v2(data)
     borda_vote(data, standings, votes_by_rank)
+
 
 
 
