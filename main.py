@@ -8,7 +8,8 @@ from methods.coombs import coombs
 from methods.condorcet import condorcet
 from methods.alternative import alternative_vote
 from methods.borda import borda_vote
-
+from methods.schulze import schulze
+from methods.kemeny_young import kemeny_young
 
 def read_file(file_name):
     print("-------------- Fichier : ", file_name, " ----------------------")
@@ -80,7 +81,12 @@ if __name__ == "__main__" :
     print("------------------ Méthode Vote Borda ------------------")
     standings, nb_votes_par_ordre = get_occurence_order_v2(data)
     borda_vote(data, standings, votes_by_rank)
-
+    print("------------------ Méthode Schulze ------------------")
+    standings, nb_votes_par_ordre = get_occurence_order_v2(data)
+    schulze(standings)
+    print("------------------ Méthode Kemeny young ------------------")
+    standings, nb_votes_par_ordre = get_occurence_order_v2(data)
+    kemeny_young(standings)
 
 
 
