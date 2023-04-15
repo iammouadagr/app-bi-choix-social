@@ -10,7 +10,7 @@ from methods.alternative import alternative_vote
 from methods.borda import borda_vote
 from methods.schulze import schulze
 from methods.kemeny_young import kemeny_young
-
+from methods.ranked_pairs import ranked_pairs
 def read_file(file_name):
     print("-------------- Fichier : ", file_name, " ----------------------")
     global data
@@ -46,24 +46,27 @@ def get_occurence_order_v2(data):
     current_rank = np.zeros(len(data))
     votes_by_rank = []
     prev_rank = np.zeros(len(data))
-    for i in range(0, len(data.columns)):  # pour chaque colonne
-        for j in range(1, len(data) + 1):  # pour chaque ligne
-            current_rank[j - 1] = data.iloc[:, i][j]  # on récupère la valeur
+    for i in range(0, len(data.columns)):
+        for j in range(1, len(data) + 1):
+            current_rank[j - 1] = data.iloc[:, i][j]
         if (np.array_equal(current_rank, prev_rank) == False):
             standings[i] = current_rank
             votes_by_rank.append(1)
-            for j in range(len(data)):  # pour chaque ligne
+            for j in range(len(data)):
                 prev_rank[j] = current_rank[j]
         else:
             votes_by_rank[-1] += 1
-            for j in range(len(data)):  # pour chaque ligne
+            for j in range(len(data)):
                 prev_rank[j] = current_rank[j]
     standings = standings[~(standings[:, 1] == 0)]
-    return standings, votes_by_rank
+    standings_list = standings.astype(int).tolist()
+    standings_list = [row for row in standings_list if any(row)]
+    return standings_list, votes_by_rank
 
 
 if __name__ == "__main__" :
     data_files = ["profiles/profil1.csv", "profiles/profil2.csv", "profiles/profil3.csv"]
+    # Choisisez le profil souhaité 0,1,2
     file_data = data_files[0]
     data_unique, columns,data = read_file(file_data)
 
@@ -76,19 +79,21 @@ if __name__ == "__main__" :
     print("------------------- condorcet ---------------------")
     condorcet(data_unique, columns, data)
     print("------------------ Méthode Vote Alternative ------------------")
-    standings, votes_by_rank = get_occurence_order_v2(data)
-    alternative_vote(data, standings, votes_by_rank)
+    votes, votes_by_rank = get_occurence_order_v2(data)
+    alternative_vote(data, votes, votes_by_rank)
     print("------------------ Méthode Vote Borda ------------------")
-    standings, nb_votes_par_ordre = get_occurence_order_v2(data)
-    borda_vote(data, standings, votes_by_rank)
+    votes, votes_by_rank = get_occurence_order_v2(data)
+    borda_vote(data, votes, votes_by_rank)
     print("------------------ Méthode Schulze ------------------")
-    standings, nb_votes_par_ordre = get_occurence_order_v2(data)
-    schulze(standings)
+    votes, nb_votes_par_ordre = get_occurence_order_v2(data)
+    schulze(votes)
     print("------------------ Méthode Kemeny young ------------------")
-    standings, nb_votes_par_ordre = get_occurence_order_v2(data)
-    kemeny_young(standings)
-
-
+    votes, votes_by_rank = get_occurence_order_v2(data)
+    # A ne pas utiliser sauf pour le profil ayant moins de candidat (profil 1) vu la complexité du temps.
+    kemeny_young(votes)
+    print("------------------ Méthode Condorcet avec rangement des paires par ordre décroissant ------------------")
+    for candidate in ranked_pairs(votes):
+        print(candidate)
 
 
 

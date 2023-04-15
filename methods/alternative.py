@@ -3,6 +3,14 @@ import numpy as np
 
 
 def alternative_vote(data,standings,votes_by_rank):
+    """
+          Algorithme du vote alternatif.
+
+            Parameters:
+                votes (list[list[int]]) : une liste de votes de préférence, où chaque vote est une liste d'entiers représentant
+                    l'ordre dans lequel les alternatives sont préférées.
+
+            """
     eliminated_candidats = []
 
     first_place_per_candidat = np.zeros(len(data))  # on initialise le nombre de 1er votes par candidat à 0
@@ -37,5 +45,6 @@ def alternative_vote(data,standings,votes_by_rank):
             maxVotes = first_place_per_candidat[i]
             gagnant = i + 1
     print("Le gagnant est le candidat ", gagnant, " avec ", int(maxVotes), " votes")
+    print(eliminated_candidats)
 
 

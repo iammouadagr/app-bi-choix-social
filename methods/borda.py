@@ -2,6 +2,14 @@ import pandas as pd
 import numpy as np
 
 def borda_vote(data,standings,votes_by_rank):
+    """
+          Algorithme de la méthode Borda.
+
+            Parameters:
+                votes (list[list[int]]) : une liste de votes de préférence, où chaque vote est une liste d'entiers représentant
+                    l'ordre dans lequel les alternatives sont préférées.
+
+            """
 
     matrice=np.zeros((len(data),len(data)))
     for i in range(len(standings)): #pour chaque ordre de vote
@@ -25,6 +33,6 @@ def borda_vote(data,standings,votes_by_rank):
                 max_points=nb_points_par_candidat[i]
                 gagnant=i+1
     print("Le gagnant est le candidat ", gagnant, " avec ", int(max_points), " points")
-
+    print(nb_points_par_candidat)
 
 

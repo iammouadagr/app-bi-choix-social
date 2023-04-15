@@ -1,22 +1,20 @@
 import itertools
+import numpy as np
 
 def kemeny_young(votes):
     """
-    Compute the Kemeny-Young ranking of a list of preference votes.
+    Calculer le classement Kemeny-Young d'une liste de votes de préférence.
 
     Parameters:
-        votes (list[list[int]]): A list of preference votes, where each vote is a list of integers representing
-            the order in which the alternatives are preferred.
+        votes (list[list[int]]) : une liste de votes de préférence, où chaque vote est une liste d'entiers représentant
+            l'ordre dans lequel les alternatives sont préférées.
 
-    Returns:
-        list[int]: The Kemeny-Young ranking, represented as a list of integers, where the i-th integer represents
-            the i-th alternative in the ranking.
     """
 
-    # Determine the set of alternatives
+    # Déterminer l'ensemble des alternatives
     alternatives = set(itertools.chain(*votes))
 
-    # Compute the preference matrix
+    # Calculer la matrice de préférence
     preference_matrix = {}
     for alt1 in alternatives:
         preference_matrix[alt1] = {}
@@ -27,7 +25,7 @@ def kemeny_young(votes):
             for alt2 in vote[i+1:]:
                 preference_matrix[alt1][alt2] += 1
 
-    # Compute the Kemeny-Young ranking
+    # Calculer le classement Kemeny-Young
     min_score = float("inf")
     min_ranking = None
     for ranking in itertools.permutations(alternatives):
@@ -37,4 +35,6 @@ def kemeny_young(votes):
             min_ranking = ranking
     results = list(min_ranking)
     print("Le gagnant est le candidat ", int(results[0]))
-    return results
+
+
+
